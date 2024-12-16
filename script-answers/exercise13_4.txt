@@ -1,0 +1,68 @@
+> docker logs romantic_shirley 
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/data ... ok        
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Etc/UTC
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+syncing data to disk ... ok
+
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/postgresql/data -l logfile start
+
+waiting for server to start....2024-12-16 12:07:37.774 UTC [49] LOG:  starting PostgreSQL 17.2 (Debian 17.2-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+2024-12-16 12:07:37.785 UTC [49] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-12-16 12:07:37.797 UTC [52] LOG:  database system was shut down at 2024-12-16 12:07:37 UTC
+2024-12-16 12:07:37.812 UTC [49] LOG:  database system is ready to accept connections
+ done
+server started
+
+/usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*     
+
+waiting for server to shut down....2024-12-16 12:07:37.968 UTC [49] LOG:  received fast shutdown request
+2024-12-16 12:07:37.974 UTC [49] LOG:  aborting any active transactions
+2024-12-16 12:07:37.976 UTC [49] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+2024-12-16 12:07:37.976 UTC [50] LOG:  shutting down
+2024-12-16 12:07:37.981 UTC [50] LOG:  checkpoint starting: shutdown immediate  
+2024-12-16 12:07:38.008 UTC [50] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.008 s, sync=0.004 s, total=0.033 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/14E4FA0, redo lsn=0/14E4FA0
+2024-12-16 12:07:38.012 UTC [49] LOG:  database system is shut down
+ done
+server stopped
+
+PostgreSQL init process complete; ready for start up.
+
+2024-12-16 12:07:38.100 UTC [1] LOG:  starting PostgreSQL 17.2 (Debian 17.2-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+2024-12-16 12:07:38.103 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-12-16 12:07:38.103 UTC [1] LOG:  listening on IPv6 address "::", port 5432 
+2024-12-16 12:07:38.113 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-12-16 12:07:38.123 UTC [63] LOG:  database system was shut down at 2024-12-16 12:07:37 UTC
+2024-12-16 12:07:38.132 UTC [1] LOG:  database system is ready to accept connections
+2024-12-16 12:12:38.203 UTC [61] LOG:  checkpoint starting: time
+2024-12-16 12:12:42.602 UTC [61] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.340 s, sync=0.018 s, total=4.400 s; sync files=11, longest=0.006 s, average=0.002 s; distance=269 kB, estimate=269 kB; lsn=0/15286B8, redo lsn=0/1528660
+2024-12-16 12:24:27.930 UTC [74] ERROR:  syntax error at or near "curl" at character 1
+2024-12-16 12:24:27.930 UTC [74] STATEMENT:  curl -X DELETE http://localhost:3000/api/blogs/1
+
+        -- Create the blogs table
+        CREATE TABLE blogs (
+          id SERIAL PRIMARY KEY,
+          author TEXT NOT NULL,
+          title TEXT NOT NULL,
+          url TEXT NOT NULL,
+          likes INT DEFAULT 0
+        );
