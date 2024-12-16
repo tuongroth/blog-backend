@@ -1,0 +1,15 @@
+-- Create the blogs table
+CREATE TABLE blogs (
+    id SERIAL PRIMARY KEY,
+    author VARCHAR(255),
+    url VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    likes INTEGER DEFAULT 0
+);
+
+-- Insert two example blog entries
+INSERT INTO blogs (author, url, title, likes)
+VALUES ('Alice', 'https://example.com/blog1', 'First Blog Post', 10);
+
+INSERT INTO blogs (author, url, title, likes)
+VALUES ('Bob', 'https://example.com/blog2', 'Second Blog Post', 5);
