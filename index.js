@@ -1,12 +1,12 @@
 const express = require('express');
-const app = express();
 const { connectToDatabase } = require('./util/db');
 const { PORT } = require('./util/config');
 const blogsRouter = require('./controllers/blogs');
 const usersRouter = require('./controllers/users');
-const loginRouter = require('./controllers/login'); // For authentication
-const { errorHandler } = require('./middleware/errorHandler');
+const loginRouter = require('./controllers/login');
+const errorHandler = require('./middleware/errorHandler');
 
+const app = express();
 app.use(express.json());
 
 app.use('/api/blogs', blogsRouter);
@@ -23,4 +23,3 @@ const start = async () => {
 };
 
 start();
-
