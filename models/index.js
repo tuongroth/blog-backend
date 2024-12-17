@@ -1,5 +1,10 @@
-const Note = require('./note');
+const Blog = require('./blog');
+const User = require('./user');
 
-Note.sync(); // Ensures the model matches the database schema
+Blog.sync();
+User.sync();
 
-module.exports = { Note };
+module.exports = {
+  Blog,
+  User
+};
