@@ -1,10 +1,25 @@
-const Blog = require('./blog');
-const User = require('./user');
+const express = require('express');
+const app = express();
+const { connectToDatabase } = require('./util/db');
+const { PORT } = require('./util/config');
+const blogsRouter = require('./controllers/blogs');
+const usersRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login'); // For authentication
+const { errorHandler } = require('./middleware/errorHandler');
 
-Blog.sync();
-User.sync();
+app.use(express.json());
 
-module.exports = {
-  Blog,
-  User
+app.use('/api/blogs', blogsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+
+app.use(errorHandler);
+
+const start = async () => {
+  await connectToDatabase();
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 };
+
+start();
