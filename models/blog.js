@@ -1,15 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = require('../util/db');
+const ReadingList = require('./readingList'); // Import ReadingList model
 
 class Blog extends Model {}
 
 Blog.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,7 +16,6 @@ Blog.init(
     },
     url: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     likes: {
       type: DataTypes.INTEGER,
@@ -28,20 +23,19 @@ Blog.init(
     },
     year: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 1991,
-        max: new Date().getFullYear(),
-      },
     },
   },
   {
     sequelize,
-    timestamps: true,
     modelName: 'Blog',
-    underscored: true,
   }
 );
+
+// Blog can belong to many users through ReadingList
+Blog.belongsToMany(User, {
+  through: ReadingList,
+  foreignKey: 'blog_id',
+});
 
 module.exports = Blog;
 
