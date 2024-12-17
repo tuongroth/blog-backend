@@ -23,7 +23,7 @@ module.exports = {
       },
       is_read: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false, // Mark as unread initially
+        defaultValue: false,
       },
       created_at: {
         allowNull: false,
@@ -42,3 +42,4 @@ module.exports = {
     await queryInterface.dropTable('ReadingLists');
   },
 };
+
