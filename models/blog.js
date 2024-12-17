@@ -1,32 +1,47 @@
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = require('../util/db');
-const User = require('./user'); // Ensure User is imported
 
 class Blog extends Model {}
 
-Blog.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+Blog.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 1991,
+        max: new Date().getFullYear(),
+      },
+    },
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  content: {
-    type: DataTypes.TEXT,
-  },
-  likes: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-}, {
-  sequelize,
-  modelName: 'blog',
-  underscored: true,
-});
-
-Blog.belongsTo(User, { foreignKey: 'userId', as: 'user' }); // Associate Blog with User
+  {
+    sequelize,
+    timestamps: true,
+    modelName: 'Blog',
+    underscored: true,
+  }
+);
 
 module.exports = Blog;
+
